@@ -120,6 +120,17 @@
 								placeholder="请填写价格" value="" class="input-text" style="width: 80%">
 						</div>
 			</div><br>
+				
+				<div class = "row cl"> 
+						
+						<label class="from-label col-2">库存：</label>
+						<div class="formControls col-10">
+							<input type="text" id="goods_num"
+								placeholder="请填写数量" value="input-text" style="width: 80%" >
+						</div>
+				</div>
+				
+			<br>
 			<div class="row cl">
 			
 						<label class="form-label col-2">详情：</label>
