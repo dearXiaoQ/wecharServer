@@ -157,6 +157,7 @@
 		var goods_img = $('#filepath').val();
 		var goods_price = $('#goods_price').val();
 		var goods_detail = $('#goods_detail').val();
+	
 		
 		$.ajax({
 			url:'goodsInsert.html',

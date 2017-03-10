@@ -71,10 +71,23 @@ import org.springframework.web.servlet.ModelAndView;
      ml.setViewName("main/goods/add");
      return ml;
    }
- 
+   
+   /**
+    * 添加商品
+    * @param goods_name
+    * @param goods_img
+    * @param goods_spe
+    * @param goods_price
+    * @param goods_num
+    * @param goods_detail
+    * @param ctg_id
+    * @param status
+    * @param type
+    * @return
+    */
    @ResponseBody
    @RequestMapping({"/main/goodsInsert.html"})
-   public String insert(String goods_name, String goods_img, String goods_spe, Float goods_price, String goods_detail, Integer ctg_id, Integer status, Integer type)
+   public String insert(String goods_name, String goods_img, String goods_spe, Float goods_price, Integer goods_num, String goods_detail, Integer ctg_id, Integer status, Integer type)
    {
      String add_time = this.sf.format(new Date());
      this.map.put("goods_name", goods_name);
@@ -88,15 +101,17 @@ import org.springframework.web.servlet.ModelAndView;
      this.map.put("type", Integer.valueOf(1));
      return String.valueOf(this.goodsService.insert(this.map));
    }
- 
+   
+   /** 更新商品信息 */
    @ResponseBody
    @RequestMapping({"/main/goodsUpdate.html"})
-   public String update(String goods_name, String goods_img, String goods_spe, Float goods_price, String goods_detail, String add_time, Integer ctg_id, Integer goods_id)
+   public String update(String goods_name, String goods_img, String goods_spe, Float goods_price, Integer goods_num, String goods_detail, String add_time, Integer ctg_id, Integer goods_id)
    {
      this.map.put("goods_name", goods_name);
      this.map.put("goods_img", goods_img);
      this.map.put("goods_spe", goods_spe);
      this.map.put("goods_price", goods_price);
+     this.map.put("goods_num", goods_num);
      this.map.put("goods_detail", goods_detail);
      this.map.put("add_time", add_time);
      this.map.put("ctg_id", ctg_id);

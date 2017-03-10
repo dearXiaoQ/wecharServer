@@ -12,7 +12,7 @@
     
     <update id="update" parameterType="java.util.Map">
     update tb_goods set goods_name=#{goods_name},goods_img=#{goods_img},goods_spe=#{goods_spe},
-    goods_price=#{goods_price},goods_detail=#{goods_detail},ctg_id=#{ctg_id},type=#{type}
+    goods_price=#{goods_price},goods_num=#{goods_num},goods_detail=#{goods_detail},ctg_id=#{ctg_id},type=#{type}
      where goods_id=#{goods_id}
     </update>
     

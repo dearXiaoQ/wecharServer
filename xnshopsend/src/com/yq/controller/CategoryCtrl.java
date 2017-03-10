@@ -50,7 +50,8 @@ import org.springframework.web.servlet.ModelAndView;
    public String update(Integer ctg_id, String ctg_name) { this.map.put("ctg_name", ctg_name);
      this.map.put("ctg_id", ctg_id);
      return String.valueOf(this.categoryService.update(this.map)); }
- 
+   
+   /** 后台控制页面中 分类查看删除产品 */
    @ResponseBody
    @RequestMapping({"/main/ctgUpstatus.html"})
    public String upstatus(Integer ctg_id, Integer status) {

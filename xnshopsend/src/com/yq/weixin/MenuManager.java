@@ -23,9 +23,7 @@ import org.slf4j.LoggerFactory;
    public static final  String Urlmain = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+baseUrl+"/xnshop/page/index.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
    public static final  String Urluser = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+baseUrl+"/xnshop/page/center.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
    public static final  String UrlcartList = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+baseUrl+"/xnshop/page/cartList.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
-
    
- 
    private static Menu getMenu()
    {
      ViewButton btn13 = new ViewButton();

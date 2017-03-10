@@ -119,6 +119,16 @@
 								placeholder="请填写价格" value="${list.goods_price }" class="input-text" style="width: 80%">
 						</div>
 			</div><br>
+
+				<div class="row cl">
+			
+						<label class="form-label col-2">库存：</label>
+						<div class="formControls col-10">
+							<input type="text" id="goods_num"
+								placeholder="请填写库存量" value="${list.goods_num }" class="input-text" style="width: 80%">
+						</div>
+			</div><br>
+			
 			<div class="row cl">
 			
 						<label class="form-label col-2">详情：</label>
@@ -147,13 +157,14 @@
 		var ctg_id = $('#ctg_id').val();
 		var goods_img = $('#filepath').val();
 		var goods_price = $('#goods_price').val();
+		var goods_num = $('#goods_num').val();
 		var goods_detail = $('#goods_detail').val();
 		
 		$.ajax({
 			url:'goodsUpdate.html',
 			type:'post',
 			data:'goods_name='+goods_name+'&ctg_id='+ctg_id+'&goods_img='+goods_img+'&goods_spe='+goods_spe
-			+'&goods_price='+goods_price+'&goods_detail='+goods_detail+'&goods_id='+goods_id,
+			+'&goods_price='+goods_price+'&goods_num='+goods_num+'&goods_detail='+goods_detail+'&goods_id='+goods_id,
 			success:function(rs){
 				if(rs==1){
 					alert("成功！");
