@@ -18,12 +18,23 @@
  
    @Autowired
    private OrderDao orderDao;
- 
+   
+   
+   public String queryOrderGoodsId(int orderId){
+	   return this.orderDao.queryOrderGoodsId(orderId);
+   }
+  
+   public int queryGoodsIdToGoodsOrder(int GoodsId){
+	   return this.orderDao.queryGoodsOrder(GoodsId);
+   }
+   
+   
    public int insert(Order order)
    {
      return this.orderDao.insert(order);
    }
- 
+  
+   
    public int upstatus(Map<String, Object> map) {
      return this.orderDao.upstatus(map);
    }

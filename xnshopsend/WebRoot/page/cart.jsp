@@ -92,6 +92,8 @@
 	<script type="text/javascript">
 		var tnum1;
 		function plus(goods_id, goods_price, sort) {
+			showTip("库存不足");
+			return;
 			var goods_num1 = $('#goods_num' + sort).text();
 			var goods_num = parseInt(goods_num1) + 1;
 			var goods_total = goods_num * goods_price;

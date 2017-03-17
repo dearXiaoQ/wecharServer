@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html class="mdd-page">
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title></title>
+    <title>个人中心</title>
     <meta name="charset" content="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -33,7 +33,7 @@
             <img src="images/wd-012-1.png">
             全部订单
         </a>
-     </section>
+<!--      </section>
       <div style="background-color: #F3F3F3;height: 10px"></div>
         <section class="f-section" style="line-height: 30px">
                
@@ -42,7 +42,7 @@
             收货地址        </a>
                 
                
-            </section>
+            </section> -->
              <div style="background-color: #F3F3F3;height: 10px"></div>
         <section class="f-section">
                 <a class="slide-link" href="tel:15800027753">

@@ -11,7 +11,9 @@ public abstract interface GoodsDao
   public abstract int update(Map<String, Object> paramMap);
 
   public abstract int upstatus(Map<String, Object> paramMap);
-
+  
+  public abstract int upGoodsOrder(int goodsOrder);
+  
   public abstract int upisrec(Map<String, Object> paramMap);
 
   public abstract List<Goods> list(Goods paramGoods);

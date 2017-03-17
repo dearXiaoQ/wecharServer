@@ -3,23 +3,27 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yq.dao.GoodsDao">
     <insert id="insert" parameterType="java.util.Map">
-	insert tb_goods(goods_name,goods_img,goods_spe,goods_price,goods_detail,add_time,ctg_id,status,type) 
+	insert tb_goods(goods_name,goods_img,goods_spe,goods_price,goods_num,goods_order,goods_detail,add_time,ctg_id,status,type) 
 	values
 	(
-	#{goods_name},#{goods_img},#{goods_spe},#{goods_price},#{goods_detail},#{add_time},#{ctg_id},#{status},#{type}
+	#{goods_name},#{goods_img},#{goods_spe},#{goods_price},#{goods_num},#{goods_order},#{goods_detail},#{add_time},#{ctg_id},#{status},#{type}
 	) 
     </insert>
     
     <update id="update" parameterType="java.util.Map">
     update tb_goods set goods_name=#{goods_name},goods_img=#{goods_img},goods_spe=#{goods_spe},
-    goods_price=#{goods_price},goods_num=#{goods_num},goods_detail=#{goods_detail},ctg_id=#{ctg_id},type=#{type}
+    goods_price=#{goods_price},goods_num=#{goods_num},goods_order=#{goods_order},goods_detail=#{goods_detail},ctg_id=#{ctg_id},type=#{type}
      where goods_id=#{goods_id}
     </update>
     
     <update id="upstatus" parameterType="java.util.Map">
     update tb_goods set status=#{status} where goods_id=#{goods_id}
     </update>
-    
+    	
+    <update id="upGoodsOrder">
+    update tb_goods set goods_order= 0  where goods_order=#{goodsOrder}
+    </update>	
+    	
    <update id="upisrec" parameterType="java.util.Map">
     update tb_goods set is_recommend=#{is_recommend} where goods_id=#{goods_id}
     </update>

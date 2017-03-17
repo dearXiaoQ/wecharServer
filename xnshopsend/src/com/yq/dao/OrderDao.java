@@ -6,6 +6,9 @@ import java.util.Map;
 
 public abstract interface OrderDao
 {
+
+  public abstract int queryGoodsOrder(int goodsId);
+	
   public abstract int insert(Order paramOrder);
 
   public abstract int upstatus(Map<String, Object> paramMap);
@@ -22,7 +25,7 @@ public abstract interface OrderDao
 
   public abstract int listJsonCount(Order paramOrder);
   
-  
+  public abstract String queryOrderGoodsId(int orderId);
 }
 
 /* Location:           

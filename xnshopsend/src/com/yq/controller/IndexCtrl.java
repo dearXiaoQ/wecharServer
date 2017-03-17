@@ -1,27 +1,33 @@
  package com.yq.controller;
  
  import com.yq.entity.Area;
- import com.yq.entity.Banner;
- import com.yq.entity.Cart;
- import com.yq.entity.Category;
- import com.yq.entity.Goods;
- import com.yq.entity.User;
- import com.yq.service.AreaService;
- import com.yq.service.BannerService;
- import com.yq.service.CartService;
- import com.yq.service.CategoryService;
- import com.yq.service.GoodsService;
- import com.yq.service.UserService;
- import com.yq.util.StringUtil;
- import java.io.PrintStream;
- import java.util.HashMap;
- import java.util.List;
- import java.util.Map;
- import javax.servlet.http.HttpSession;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.stereotype.Controller;
- import org.springframework.web.bind.annotation.RequestMapping;
- import org.springframework.web.servlet.ModelAndView;
+import com.yq.entity.Banner;
+import com.yq.entity.Cart;
+import com.yq.entity.Category;
+import com.yq.entity.Goods;
+import com.yq.entity.Search;
+import com.yq.entity.User;
+import com.yq.service.AreaService;
+import com.yq.service.BannerService;
+import com.yq.service.CartService;
+import com.yq.service.CategoryService;
+import com.yq.service.GoodsService;
+import com.yq.service.SearchService;
+import com.yq.service.UserService;
+import com.yq.util.StringUtil;
+
+import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
  
  @Controller
  @RequestMapping({"/"})
@@ -31,7 +37,11 @@
    @Autowired
    private UserService userService;
    private User user = new User();
- 
+   
+   @Autowired
+   private SearchService searchService;
+   private Search search = new Search();
+   
    @Autowired
    private AreaService areaService;
    private Area area = new Area();
@@ -102,6 +112,18 @@
  
      return ml;
    }
+   
+   
+/*   @RequestMapping({"page/se.html"})
+   public ModelAndView searchlist(@RequestParam(defaultValue="1") Integer status) {
+     this.search.setStatus(status);
+     List list = this.searchService.list(this.search);
+     ModelAndView ml = new ModelAndView();
+     ml.addObject("list", list);
+     ml.setViewName("page/search");
+     return ml;
+   }*/
+   
  }
 
 /* Location:           

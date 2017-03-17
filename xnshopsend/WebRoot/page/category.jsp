@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+	<title>分类</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/liebiaoye.js"></script>
@@ -30,6 +31,7 @@ document.body.addEventListener('touchmove',function(e){
     </head>
  
     <body id="wrap">
+	
     <div class="title" style="border-bottom:1px solid rgba(204, 204, 204, 0.15);text-align:center;">
    		<span>分类</span>
         <div class="title-left"><a href="index.html"><img src="images/back.png" alt="" /></a></div>
@@ -94,7 +96,9 @@ document.body.addEventListener('touchmove',function(e){
 			data:'goods_id='+goods_id+'&goods_name='+goods_name+'&goods_img='+goods_img+'&goods_price='+goods_price+'&goods_num=1'+'&goods_spe='+goods_spe,
 			success:function(rs){
 				var data = eval('('+rs+')');
-				if(data.rs_code==1){
+				if (data.rs_code==2){
+						showTip("库存不足");
+				}else if(data.rs_code==1){
 					$('#cart_num').text(data.cart_num);
 					showTip("已加入购物车！");
 //					location.reload();

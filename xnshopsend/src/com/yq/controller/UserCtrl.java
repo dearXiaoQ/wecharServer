@@ -175,7 +175,7 @@ public class UserCtrl extends StringUtil
 
 	@RequestMapping({"/page/center.html"})
 	public ModelAndView userListById(String oppen_id, HttpSession session)
-	{
+	{	
 		System.out.println("进入UserCtrl.userListById()方法" + System.currentTimeMillis());
 		oppen_id = getOppen_id(session);
 		this.user.setOppen_id(oppen_id);
@@ -183,8 +183,10 @@ public class UserCtrl extends StringUtil
 		System.out.println(">>>>list:"+list.toString());
 		ModelAndView ml = new ModelAndView();
 		ml.addObject("user", list);
-
 		ml.setViewName("page/center");
+		this.cart.setOppen_id(oppen_id);
+		int cart_num = this.cartService.goodstotalnum(cart);
+		session.setAttribute("cart_num", cart_num);
 		return ml;
 	}
 }

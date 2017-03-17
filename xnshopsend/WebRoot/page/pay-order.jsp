@@ -11,6 +11,7 @@
 <title></title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/shoujisc.css">
+<link rel="stylesheet" type="text/css" href="css/showTip.css">
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/woxiangyao.js"></script>
 <script type="text/javascript"
@@ -120,8 +121,11 @@
     scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
     success: function (res) {
     var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-    alert(result);
-    if(result.indexOf("1号桌") > 0) {
+    setTimeout (function () {
+		alert(result);
+		}, 100);
+   // alert(result);
+    if(result.indexOf("号桌") > 0) {
 		simulatePay();    		
     }
  
@@ -150,8 +154,10 @@
 			 "appId" : "<%=request.getAttribute("appId")%>","timeStamp" : "<%=request.getAttribute("timeStamp")%>", "nonceStr" : "<%=request.getAttribute("nonceStr")%>", "package" : "<%=request.getAttribute("package")%>","signType" : "MD5", "paySign" : "<%=request.getAttribute("paySign")%>" 
    			},function(res){
 				WeixinJSBridge.log(res.err_msg);
-	            alert("微信支付成功！");
-	           
+	        //    alert("微信支付成功！");
+	           setTimeout (function () {
+		alert("微信支付成功！");
+		}, 100);
 	            modifyOrderStatus();      		
 	  
 			});

@@ -25,6 +25,13 @@ import com.yq.weixin.pay.action.NotifyServlet;
 import com.yq.weixin.pay.action.TopayServlet;
 import com.yq.weixin.pay.util.GetWxOrderno;
 import com.yq.weixin.servlet.WechatPushMassage;
+import com.yq.util.HttpUtils;
+
+
+
+
+
+
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -42,9 +49,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.sf.ezmorph.array.IntArrayMorpher;
 import net.sf.json.JSONArray;
 
 import org.aspectj.apache.bcel.generic.NEW;
+import org.json.JSONObject;
 import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,7 +67,7 @@ import com.yq.weixin.util.SignUtil;
 @Controller
 @RequestMapping
 public class OrderCtrl extends StringUtil
-{
+{	
 
 	@Autowired
 	private OrderService orderService;
@@ -94,9 +103,14 @@ public class OrderCtrl extends StringUtil
 	private Goods goods = new Goods();
 	Gson gson = new Gson();
 	Map<String, Object> map = new HashMap();
+	int oldList0Size = 0;
+	int oldList1Size = 0;
+	int oldList2Size = 0;
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	WechatPushMassage wechatPushMassage = new WechatPushMassage();
+
+
 
 	/** 微信支付 */
 	@ResponseBody
@@ -145,11 +159,45 @@ public class OrderCtrl extends StringUtil
 		}
 		return "0";
 	}
-	
+
 	/** 修改订单号状态（仅限广交会模拟支付使用） */
 	@ResponseBody
 	@RequestMapping({"/page/modifyOrderStatus.html"})
 	public void updateOrederStatus(String order_id, HttpServletResponse response, HttpSession session)  {
+		//83,-=82,-=85
+		
+		String goodsStr = this.orderService.queryOrderGoodsId(Integer.valueOf(order_id));
+		String[] arr = goodsStr.split(",-=");
+		int[] goodsList = new int[arr.length]; 
+		for(int i = 0; i < arr.length; i ++) {
+			goodsList[i] = this.orderService.queryGoodsIdToGoodsOrder(Integer.valueOf(arr[i]));
+			System.out.println(goodsList[i]);
+		}
+
+		//httpsRequest(targetUrl, "POST", gson.toJson(orders).toString());
+		JSONObject jsonObject = new JSONObject();
+		JSONObject jsonObjectOrder = new JSONObject();
+		//json数组
+		//组装json数组
+		jsonObjectOrder.put("orderNumber", order_id);
+		jsonObjectOrder.put("tableNumber", 1);
+		jsonObjectOrder.put("orderList", goodsList);
+		jsonObject.put("order", jsonObjectOrder);
+
+		try{	
+			HttpUtils.login(jsonObject.toString());
+		} catch (Exception e){
+			System.out.println("下达订单到PLC 失败！");
+			e.printStackTrace();
+			try{	
+				HttpUtils.login(jsonObject.toString());
+			} catch (Exception exception){
+				System.out.println("下达订单到PLC 失败！");
+				exception.printStackTrace();
+			}
+		} finally{
+		}
+
 		System.out.println("修改的订单号为： "  + order_id);
 		HashMap<String, Integer> map3 = new HashMap<String, Integer>();
 		map3.put("rs_code", 1);
@@ -202,9 +250,135 @@ public class OrderCtrl extends StringUtil
 		return String.valueOf(this.orderService.delete(this.map));
 	}
 
+
 	@RequestMapping({"/page/orderList.html"})
 	public ModelAndView list(@RequestParam(defaultValue="-2") Integer status, String oppen_id, HttpSession session)
 	{
+		oppen_id = getOppen_id(session);
+		this.order.setOppen_id(oppen_id);
+		this.order.setStatus(-2);
+		this.order.setStart_time("");
+		this.order.setEnd_time("");
+		this.order.setCtg_name("");
+		this.order.setGoods_name("");
+		this.order.setAddr_name("");
+		List list = this.orderService.list(this.order);
+		System.out.println("list=" + list.size());
+		if (list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				List ordList = new ArrayList();
+				String[] gId = ((Order)list.get(i)).getGoods_id().split(",-=");
+				String[] gName = ((Order)list.get(i)).getGoods_name().split(",-=");
+				String[] gImg = ((Order)list.get(i)).getGoods_img().split(",-=");
+				String[] gPrice = ((Order)list.get(i)).getGoods_price().split(",-=");
+				String[] gNum = ((Order)list.get(i)).getGoods_num().split(",-=");
+
+				for (int m = 0; m < gId.length; m++) {
+					Order ord = new Order();
+					ord.setGoods_id(gId[m]);
+					ord.setGoods_name(gName[m]);
+					ord.setGoods_img(gImg[m]);
+					ord.setGoods_price(gPrice[m]);
+					ord.setGoods_num(gNum[m]);
+					ordList.add(ord);
+				}
+				this.map.put("ord" + i, ordList);
+			}
+		}
+		this.order.setStatus(0);
+		List list0 = this.orderService.list(this.order);
+		if (list0.size() > 0) {
+			for (int i = 0; i < list0.size(); i++) {
+				List ordList = new ArrayList();
+				String[] gId = ((Order)list0.get(i)).getGoods_id().split(",-=");
+				String[] gName = ((Order)list0.get(i)).getGoods_name().split(",-=");
+				String[] gImg = ((Order)list0.get(i)).getGoods_img().split(",-=");
+				String[] gPrice = ((Order)list0.get(i)).getGoods_price().split(",-=");
+				String[] gNum = ((Order)list0.get(i)).getGoods_num().split(",-=");
+				for (int m = 0; m < gId.length; m++) {
+					Order ord = new Order();
+					ord.setGoods_id(gId[m]);
+					ord.setGoods_name(gName[m]);
+					ord.setGoods_img(gImg[m]);
+					ord.setGoods_price(gPrice[m]);
+					ord.setGoods_num(gNum[m]);
+					ordList.add(ord);
+				}
+				this.map.put("ord0" + i, ordList);
+			}
+		}
+
+		this.order.setStatus(1);
+		List list1 = this.orderService.list(this.order);
+		if (list1.size() > 0) {
+			for (int i = 0; i < list1.size(); i++) {
+				List ordList = new ArrayList();
+				String[] gId = ((Order)list1.get(i)).getGoods_id().split(",-=");
+				String[] gName = ((Order)list1.get(i)).getGoods_name().split(",-=");
+				String[] gImg = ((Order)list1.get(i)).getGoods_img().split(",-=");
+				String[] gPrice = ((Order)list1.get(i)).getGoods_price().split(",-=");
+				String[] gNum = ((Order)list1.get(i)).getGoods_num().split(",-=");
+				for (int m = 0; m < gId.length; m++) {
+					Order ord = new Order();
+					ord.setGoods_id(gId[m]);
+					ord.setGoods_name(gName[m]);
+					ord.setGoods_img(gImg[m]);
+					ord.setGoods_price(gPrice[m]);
+					ord.setGoods_num(gNum[m]);
+					ordList.add(ord);
+				}
+				this.map.put("ord1" + i, ordList);
+			}
+		}
+		
+		
+		this.order.setStatus(2);
+		List list2 = this.orderService.list(this.order);
+		if (list2.size() > 0) {
+			for (int i = 0; i < list2.size(); i++) {
+				List ordList = new ArrayList();
+				String[] gId = ((Order)list2.get(i)).getGoods_id().split(",-=");
+				String[] gName = ((Order)list2.get(i)).getGoods_name().split(",-=");
+				String[] gImg = ((Order)list2.get(i)).getGoods_img().split(",-=");
+				String[] gPrice = ((Order)list2.get(i)).getGoods_price().split(",-=");
+				String[] gNum = ((Order)list2.get(i)).getGoods_num().split(",-=");
+				for (int m = 0; m < gId.length; m++) {
+					Order ord = new Order();
+					ord.setGoods_id(gId[m]);
+					ord.setGoods_name(gName[m]);
+					ord.setGoods_img(gImg[m]);
+					ord.setGoods_price(gPrice[m]);
+					ord.setGoods_num(gNum[m]);
+					ordList.add(ord);
+				}
+				this.map.put("ord2" + i, ordList);
+			}
+		}
+		
+
+
+		this.cart.setOppen_id(oppen_id);
+		int carNum = this.cartService.goodstotalnum(cart);
+		session.setAttribute("cart_num", Integer.valueOf(carNum));
+		this.map.put("list", list);
+		this.map.put("list0", list0);
+		this.map.put("list1", list1);
+		this.map.put("list2", list2);
+		oldList0Size = list0.size();
+		oldList1Size = list1.size();
+		oldList2Size = list2.size();
+		ModelAndView ml = new ModelAndView();
+		ml.addObject("map", this.map);
+		ml.setViewName("page/order-list");
+		return ml;
+	}
+	
+	
+	
+	@RequestMapping({"/page/refreshOrderList.html"})
+	public void refresh(@RequestParam(defaultValue="-2") Integer status, String open_id, HttpServletResponse response,HttpSession session)
+	{	
+		
 		this.order.setOppen_id(getOppen_id(session));
 		this.order.setStatus(-2);
 		this.order.setStart_time("");
@@ -280,6 +454,8 @@ public class OrderCtrl extends StringUtil
 				this.map.put("ord1" + i, ordList);
 			}
 		}
+		
+		
 		this.order.setStatus(2);
 		List list2 = this.orderService.list(this.order);
 		if (list2.size() > 0) {
@@ -290,8 +466,8 @@ public class OrderCtrl extends StringUtil
 				String[] gImg = ((Order)list2.get(i)).getGoods_img().split(",-=");
 				String[] gPrice = ((Order)list2.get(i)).getGoods_price().split(",-=");
 				String[] gNum = ((Order)list2.get(i)).getGoods_num().split(",-=");
-				Order ord = new Order();
 				for (int m = 0; m < gId.length; m++) {
+					Order ord = new Order();
 					ord.setGoods_id(gId[m]);
 					ord.setGoods_name(gName[m]);
 					ord.setGoods_img(gImg[m]);
@@ -302,16 +478,37 @@ public class OrderCtrl extends StringUtil
 				this.map.put("ord2" + i, ordList);
 			}
 		}
+		
+
+		
+		this.cart.setOppen_id(open_id);
+		int carNum = this.cartService.goodstotalnum(cart);
+		session.setAttribute("cart_num", Integer.valueOf(carNum));
 		this.map.put("list", list);
 		this.map.put("list0", list0);
 		this.map.put("list1", list1);
 		this.map.put("list2", list2);
-		ModelAndView ml = new ModelAndView();
-		ml.addObject("map", this.map);
-		ml.setViewName("page/order-list");
-		return ml;
+		
+		
+		HashMap<String, Integer> map3 = new HashMap<String, Integer>();
+		if(oldList0Size == list0.size() && oldList1Size == list1.size() && oldList2Size == list2.size()) {
+			map3.put("rs_code", 0);			
+			System.out.println("订单数据没有更新！");
+		}  else {
+			map3.put("rs_code", 1);			
+			System.out.println("订单数据已经更新！");
+		}
+		try {
+			response.getWriter().write(gson.toJson(map3));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
-
+	
+	
+	
 	@RequestMapping({"/order.html"})
 	public void orderListJs(@RequestParam(value="c", defaultValue="1") Integer currentPage, @RequestParam(value="p", defaultValue="0") Integer pageSize, HttpServletRequest request, HttpServletResponse response)
 			throws IOException
@@ -550,6 +747,10 @@ public class OrderCtrl extends StringUtil
 
 		ml.addObject("areaList", areaList);
 		ml.setViewName("page/cart-order");
+
+
+
+
 		return ml;
 	}
 

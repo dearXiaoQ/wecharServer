@@ -129,7 +129,21 @@
 								placeholder="请填写数量" value="input-text" style="width: 80%" >
 						</div>
 				</div>
-				
+					
+					
+			<br>
+
+				<div class = "row cl"> 
+						
+						<label class="from-label col-2">商品编号：</label>
+						<div class="formControls col-10">
+							<input type="text" id="goods_order"
+								placeholder="默认为0" value="input-text" style="width: 80%" >
+						</div>
+				</div>
+					
+					
+					
 			<br>
 			<div class="row cl">
 			
@@ -156,17 +170,18 @@
 		var goods_spe = $('#goods_spe').val();
 		var goods_img = $('#filepath').val();
 		var goods_price = $('#goods_price').val();
+		var goods_num = $('#goods_num').val();
+		var goods_order = $('#goods_order').val();
 		var goods_detail = $('#goods_detail').val();
-	
+		
 		
 		$.ajax({
 			url:'goodsInsert.html',
 			type:'post',
 			data:'goods_name='+goods_name+'&ctg_id='+ctg_id+'&goods_img='+goods_img+'&goods_spe='+goods_spe
-			+'&goods_price='+goods_price+'&goods_detail='+goods_detail,
+			+'&goods_price='+goods_price+'&goods_num='+goods_num+'&goods_order='+goods_order+'&goods_detail='+goods_detail,
 			success:function(rs){
-				if(rs==1){
-					
+				if(rs==1){	
 					alert("添加成功！");
 					window.location.href = document.referrer;
 				}else{

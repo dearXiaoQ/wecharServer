@@ -1,29 +1,40 @@
  package com.yq.controller;
  
- import com.yq.entity.Category;
- import com.yq.entity.Goods;
- import com.yq.service.CategoryService;
- import com.yq.service.GoodsService;
- import java.util.ArrayList;
- import java.util.HashMap;
- import java.util.List;
- import java.util.Map;
- import org.springframework.beans.factory.annotation.Autowired;
- import org.springframework.stereotype.Controller;
- import org.springframework.web.bind.annotation.RequestMapping;
- import org.springframework.web.bind.annotation.RequestParam;
- import org.springframework.web.bind.annotation.ResponseBody;
+ import com.yq.entity.Cart;
+import com.yq.entity.Category;
+import com.yq.entity.Goods;
+import com.yq.service.CartService;
+import com.yq.service.CategoryService;
+import com.yq.service.GoodsService;
+import com.yq.weixin.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
  
  @Controller
  @RequestMapping({"/"})
- public class CategoryCtrl
+ public class CategoryCtrl extends com.yq.util.StringUtil
  {
  
    @Autowired
    private CategoryService categoryService;
    private Category category = new Category();
- 
+
+   @Autowired
+   private CartService cartService;
+   private Cart cart = new Cart();
+   
    @Autowired
    private GoodsService goodsService;
    private Goods goods = new Goods();
@@ -85,8 +96,10 @@ import org.springframework.web.servlet.ModelAndView;
      ml.setViewName("main/category/info");
      return ml;
    }
+   
+   /** 处理分类请求 */
    @RequestMapping({"/page/category.html"})
-   public ModelAndView ctgList(@RequestParam(defaultValue="0") Integer ctg_id) {
+   public ModelAndView ctgList(@RequestParam(defaultValue="0") Integer ctg_id, HttpSession session) {
      this.category.setStatus(Integer.valueOf(1));
      List ctgList = this.categoryService.list(this.category);
      List goodsList = new ArrayList();
@@ -104,6 +117,10 @@ import org.springframework.web.servlet.ModelAndView;
      ml.addObject("ctgList", ctgList);
      ml.addObject("goodsList", goodsList);
      ml.setViewName("page/category");
+     String open_id = getOppen_id(session);
+     this.cart.setOppen_id(open_id);
+     int cart_num = this.cartService.goodstotalnum(this.cart);
+     session.setAttribute("cart_num", cart_num);
      return ml;
    }
  }

@@ -13,7 +13,7 @@
 import org.springframework.web.servlet.ModelAndView;
  
  @Controller
- @RequestMapping()
+ @RequestMapping({"/"})
  public class SearchCtrl
  {
  
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
    private SearchService searchService;
    private Search search = new Search();
    Map<String, Object> map = new HashMap();
- 
+   
    @RequestMapping({"main/secAddjsp.html"})
    public ModelAndView addjsp()
    {
@@ -76,7 +76,7 @@ import org.springframework.web.servlet.ModelAndView;
      ml.setViewName("main/search/info");
      return ml;
    }
-   @RequestMapping({"page/secList.html"})
+   @RequestMapping({"page/se.html"})
    public ModelAndView searchlist(@RequestParam(defaultValue="1") Integer status) {
      this.search.setStatus(status);
      List list = this.searchService.list(this.search);

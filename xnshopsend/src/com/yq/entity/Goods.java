@@ -14,8 +14,17 @@
    String goods_spe;
    Integer type;
    Integer goods_num;
- 
-   public Integer getGoods_id()
+   Integer goods_order;
+   
+   public Integer getGoods_order() {
+	return goods_order;
+}
+
+public void setGoods_order(Integer goods_order) {
+	this.goods_order = goods_order;
+}
+
+public Integer getGoods_id()
    {
      return this.goods_id;
    }

@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title></title>
+<title>我的订单</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/shoujisc.css">
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -23,8 +23,8 @@
     <ul class="quanbu-title2">
     	<li class="current" style="display: inline;"><a href="JavaScript:;">全部</a></li>
     	<li style="display: inline;"><a href="JavaScript:;">待支付</a></li>
-    	<li style="display: inline;"><a href="JavaScript:;">待发货</a></li>
-    	<li style="display: inline;"><a href="JavaScript:;">已发货</a></li>
+    	<li style="display: inline;"><a href="JavaScript:;">待配送</a></li>
+    	<li style="display: inline;"><a href="JavaScript:;">已配送</a></li>
         <div style="clear:both;"></div>
     </ul>
 	
@@ -37,7 +37,7 @@
                 	<li class="my-spl f-l">${list.add_time}</li>
                 	<li class="my-spr f-r">
 					<c:if test="${list.status==0 }">待支付</c:if>
-					<c:if test="${list.status==1 }">待发货</c:if>
+					<c:if test="${list.status==1 }">待配送</c:if>
 					<c:if test="${list.status==2 }">完成配送</c:if>
 					<c:if test="${list.status==-5 }">退款中</c:if>
 					<c:if test="${list.status==-6 }">已关闭</c:if>
@@ -88,8 +88,8 @@
                 	<li class="my-spl f-l">${list.add_time}</li>
                 	<li class="my-spr f-r">
 					<c:if test="${list.status==0 }">待支付</c:if>
-					<c:if test="${list.status==1 }">待发货</c:if>
-					<c:if test="${list.status==2 }">已发货</c:if>
+					<c:if test="${list.status==1 }">待配送</c:if>
+					<c:if test="${list.status==2 }">已配送</c:if>
 					</li>
                     <div style="clear:both;"></div>
                 </ul>
@@ -127,8 +127,8 @@
                 	<li class="my-spl f-l">${list.add_time}</li>
                 	<li class="my-spr f-r">
 					<c:if test="${list.status==0 }">待支付</c:if>
-					<c:if test="${list.status==1 }">待发货</c:if>
-					<c:if test="${list.status==2 }">已发货</c:if>
+					<c:if test="${list.status==1 }">待配送</c:if>
+					<c:if test="${list.status==2 }">已配送</c:if>
 					</li>
                     <div style="clear:both;"></div>
                 </ul>
@@ -161,7 +161,9 @@
            </c:forEach> 
                  	
         </div>
-        <div class="my-info" style="display:none;">
+        
+        
+      <div class="my-info" style="display:none;">
             <c:forEach items="${map['list2']}" var="list" varStatus="s">
     	<c:set value="ord2${s.index}" var="ord"></c:set>
         	<div class="my-k1">
@@ -169,8 +171,8 @@
                 	<li class="my-spl f-l">${list.add_time}</li>
                 	<li class="my-spr f-r">
 					<c:if test="${list.status==0 }">待支付</c:if>
-					<c:if test="${list.status==1 }">待发货</c:if>
-					<c:if test="${list.status==2 }">已发货</c:if>
+					<c:if test="${list.status==1 }">待配送</c:if>
+					<c:if test="${list.status==2 }">已配送</c:if>
 					</li>
                     <div style="clear:both;"></div>
                 </ul>
@@ -199,6 +201,13 @@
            </c:forEach> 
             
         </div>
+     
+        
+        
+        
+        
+        
+    
     </div>
     <jsp:include page="footer5.jsp"></jsp:include>	
     		
@@ -214,7 +223,7 @@
     				data:'order_id='+order_id+'&status=-5',
     				success:function(rs){
     					if(rs==1){
-    						alert("提交成功，我们将3个工作日内给您退款！");
+    						alert("提交成功，我们将10分钟内给您退款！");
     						location.reload();
     					}else{
     						alert("失败，请联系客服！");
@@ -222,6 +231,27 @@
     				}
     			})
     		}
+    		
+    		var timer = window.setInterval("referesh()",10000); 
+    		
+    		function referesh(){
+    			$
+    				.ajax({
+    					url : 'refreshOrderList.html',
+    					type : 'post',
+    					success : function(rs) {
+    						var data = eval('( ' + rs + ' )');
+    						if(data.rs_code == 0){ //不刷新
+    						
+    						} if(data.rs_code == 1){ //刷新页面
+    							//window.location.herf = 'orderList.html';
+    							location.reload();   
+    						}
+    					}
+    				})
+    		}
+    		
+    		
     		</script>
 </body>
 </html>
