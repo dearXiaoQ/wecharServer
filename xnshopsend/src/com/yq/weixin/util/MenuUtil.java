@@ -21,10 +21,13 @@
      String jsonMenu = JSONObject.fromObject(menu).toString();
  
      JSONObject jsonObject = CommonUtil.httpsRequest(url, "POST", jsonMenu);
- 
+     
      if (jsonObject != null) {
        int errorCode = jsonObject.getInt("errcode");
        String errorMsg = jsonObject.getString("errmsg");
+     /*  System.out.println("errorCode = " + errorCode);
+       System.out.println("errorMsg = " + errorMsg);*/
+
        if (errorCode == 0) {
          result = true;
        } else {

@@ -15,7 +15,7 @@ public class HttpUtils {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     	
-    public static final String targetUrl = "http://192.168.1.123:3300/order";
+    public static final String targetUrl = "http://localhost:3300/order";
     
     public static  String login(String json) throws IOException {
     	OkHttpClient client = new OkHttpClient();

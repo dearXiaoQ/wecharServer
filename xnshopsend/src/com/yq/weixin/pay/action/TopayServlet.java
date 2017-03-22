@@ -44,7 +44,7 @@ import net.sf.json.JSONObject;
      String partnerkey = "yqkj1100yqkj1100yqkj1100yqkj1100";
      String openId = (String)session.getAttribute("oppen_id");
      String code = (String)session.getAttribute("code");
-     String notify_url = "http://14q9127i71.imwork.net/xnshop/page/noticeOrder.html";
+     String notify_url = "http://gmri.mastergroup.com.cn/xnshop/page/noticeOrder.html";
      String URL = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + 
        appid + "&secret=" + appsecret + "&code=" + code + 
        "&grant_type=authorization_code";

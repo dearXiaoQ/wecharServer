@@ -139,7 +139,7 @@
 		</div>
 
 	</div>
-	<!-- 其他分类 -->
+<%-- 	<!-- 其他分类 -->
 	<c:forEach items="${ctgList}" var="ctgList" varStatus="s">
 		<div class="ssjg" style="padding-bottom:0;">
 			<ul class="ssjg-tit1" style="width:300px">
@@ -166,7 +166,7 @@
 							</p>
 							<dl class="ssjg-dl1">
 								<dt>
-									<
+									
 									<p class="ssjg-p2" style="font-size: 9px">
 										<span>${glist.goods_spe}</span>
 									</p>
@@ -190,7 +190,7 @@
 				</ul>
 			</div>
 		</div>
-	</c:forEach>
+	</c:forEach> --%>
 
 
 	<div class="sy-ft"></div>
@@ -208,7 +208,6 @@
 				item : '.article'
 			});
 		});
-
 		function add(goods_id, goods_name, goods_img, goods_spe, goods_price) {
 			$
 					.ajax({
@@ -234,7 +233,6 @@
 							} else {
 								showTip("加入购物车失败！");
 							}
-
 						}
 					})
 		}

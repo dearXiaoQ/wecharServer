@@ -19,7 +19,8 @@ import org.slf4j.LoggerFactory;
    static CommonUtil commonUtil = new CommonUtil();
    public static final String appId = "wxc1c62269461a335d";
    public static final  String appSecret = "af656d37f16486eb5536c05e5c637f68";
-   public static final  String baseUrl = "http://14q9127i71.imwork.net";
+   public static final  String baseUrl = "http://gmri.mastergroup.com.cn";
+  // public static final  String baseUrl = "http://gmri.mastergroup.com.cn";
    public static final  String Urlmain = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+baseUrl+"/xnshop/page/index.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
    public static final  String Urluser = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+baseUrl+"/xnshop/page/center.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
    public static final  String UrlcartList = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&redirect_uri="+baseUrl+"/xnshop/page/cartList.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect";
@@ -34,12 +35,12 @@ import org.slf4j.LoggerFactory;
 //     ViewButton btn14 = new ViewButton();
 //     btn14.setName("首页");
 //     btn14.setType("view");
-//     btn14.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://14q9127i71.imwork.net/xnshop/page/index.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect");
+//     btn14.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://gmri.mastergroup.com.cn/xnshop/page/index.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect");
 // 
 //     ViewButton btn15 = new ViewButton();
 //     btn15.setName("首页");
 //     btn15.setType("view");
-//     btn15.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://14q9127i71.imwork.net/xnshop/page/index.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect");
+//     btn15.setUrl("https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://gmri.mastergroup.com.cn/xnshop/page/index.html&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect");
  
      ViewButton btn21 = new ViewButton();
      btn21.setName("我的购物车");
@@ -87,7 +88,6 @@ import org.slf4j.LoggerFactory;
      if (token != null)
      {
        boolean result = MenuUtil.createMenu(getMenu(), token.getAccessToken());
- 
        if (result) {
          log.info("菜单创建成功！");
          System.out.println("菜单创建成功！");

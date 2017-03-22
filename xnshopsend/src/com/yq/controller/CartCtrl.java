@@ -193,7 +193,7 @@ public class CartCtrl extends StringUtil
 		ModelAndView ml = new ModelAndView();
 		ml.addObject("goods", list);
 		ml.addObject("tprice", tprice.toString());
-		ml.addObject("tnum", Integer.valueOf(tnum));
+		ml.addObject("tnum", tnum);
 		ml.setViewName("page/cart");
 		return ml;
 	}

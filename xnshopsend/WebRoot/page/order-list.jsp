@@ -39,7 +39,7 @@
 					<c:if test="${list.status==0 }">待支付</c:if>
 					<c:if test="${list.status==1 }">待配送</c:if>
 					<c:if test="${list.status==2 }">完成配送</c:if>
-					<c:if test="${list.status==-5 }">退款中</c:if>
+					<%-- <c:if test="${list.status==-5 }">退款中</c:if> --%>
 					<c:if test="${list.status==-6 }">已关闭</c:if>
 					</li>
                     <div style="clear:both;"></div>
@@ -70,9 +70,9 @@
                 	
                 	<button class="my-btn1 f-r" >￥${list.goods_total}</button>
                 	
-                	<c:if test="${list.status==1}">
+                	<%-- <c:if test="${list.status==1}">
                		 <button class="my-btn1 f-r" onclick="send('${list.order_id}')">退款</button>
-                	</c:if>
+                	</c:if> --%>
                 	</c:if>
                     <div style="clear:both;"></div>
                 </div>
@@ -152,9 +152,9 @@
                 	<span class="my-sp3 f-l">订单号：${list.order_id}</span>
                 	
                     <button class="my-btn1 f-r">￥${list.goods_total}</button>
-                    <c:if test="${list.status==1}">
+              <%--       <c:if test="${list.status==1}">
                		 <button class="my-btn1 f-r" onclick="send('${list.order_id}')">退款</button>
-                	</c:if>
+                	</c:if> --%>
                     <div style="clear:both;"></div>
                 </div>
             </div>
@@ -212,7 +212,7 @@
     <jsp:include page="footer5.jsp"></jsp:include>	
     		
     		<script type="text/javascript">
-    		function send(order_id){
+    /* 		function send(order_id){
     			var  b = confirm('确定退款吗？');
         		if(!b){
         		return ;
@@ -230,7 +230,7 @@
     					}
     				}
     			})
-    		}
+    		} */
     		
     		var timer = window.setInterval("referesh()",10000); 
     		

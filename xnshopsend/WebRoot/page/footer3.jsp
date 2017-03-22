@@ -25,7 +25,7 @@
             <div class="qu-tu1" style="height: 43px;" align="center">
             	<a href="cartList.html" class="atu1"><img src="images/cart.png" style="width: 40px;height: 40px"></a>
             	<a href="cartList.html" class="atu2"><img src="images/cart.png" style="width: 40px;height: 40px"></a>
-            	<span style="position:fixed;margin-top: -45px;margin-left:16px;color: #ff3c00" id="cart_num">${cart_num }</span>
+            	<span style="position:fixed;margin-top: -45px;margin-left:16px;color: #ff3c00" id="cart_num">${tnum}</span>
             </div>
             <!-- <a href="cartList.html" class="qu-ul1a">购物车</a> -->
         </li>

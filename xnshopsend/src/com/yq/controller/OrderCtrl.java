@@ -166,6 +166,23 @@ public class OrderCtrl extends StringUtil
 	public void updateOrederStatus(String order_id, HttpServletResponse response, HttpSession session)  {
 		//83,-=82,-=85
 		
+		
+	/*	System.out.println("修改的订单号为： "  + order_id);
+		HashMap<String, Integer> map3 = new HashMap<String, Integer>();
+		map3.put("rs_code", 1);
+		map3.put("cart_num", 0);
+		this.map.put("order_id", order_id);
+		this.map.put("status", 1);
+		int result = this.orderService.upstatus(this.map);
+		System.out.println("result = " + result);
+		try {
+			response.getWriter().write(gson.toJson(map3));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ;*/
+	
 		String goodsStr = this.orderService.queryOrderGoodsId(Integer.valueOf(order_id));
 		String[] arr = goodsStr.split(",-=");
 		int[] goodsList = new int[arr.length]; 

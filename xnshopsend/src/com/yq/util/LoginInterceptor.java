@@ -53,7 +53,7 @@
        }
        else {
          response.sendRedirect(
-           "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://14q9127i71.imwork.net/xnshop/page/userInsert.html?url=" + 
+           "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://gmri.mastergroup.com.cn/xnshop/page/userInsert.html?url=" + 
            url + 
            "&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect");
        }

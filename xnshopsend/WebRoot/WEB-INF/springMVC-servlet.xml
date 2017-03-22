@@ -22,7 +22,7 @@
 	
 	<mvc:interceptors>
      <!--    <mvc:interceptor>
-        	<mvc:mapping path="http://14q9127i71.imwork.net/xnshop/page/inde/plc.html"/>
+        	<mvc:mapping path="http://gmri.mastergroup.com.cn/xnshop/page/inde/plc.html"/>
         	<bean id="plcServerCtrl" class="com.yq.util.plcServerCtrl"/>
         
         </mvc:interceptor> -->

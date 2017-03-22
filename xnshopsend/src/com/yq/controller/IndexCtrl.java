@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
  @RequestMapping({"/"})
  public class IndexCtrl extends StringUtil
  {
-	 //https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://14q9127i71.imwork.net/xnshop/page/userInsert.html?url=http://14q9127i71.imwork.net/xnshop/page/index.html?code=001B6ag105UlRD1dbSf10lh6g10B6ags&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1&uin=MTIyMjAxNDYxMw%3D%3D&key=65f928c75b96cd024462f4d9715c033905f7aab1b11ceed506594a64b304349cdacdd3817b9c2d5826d4521636730baf&pass_ticket=DJl4g8sobnzXNWgXX3pKBKKUmSvC9PIWiY7rdMq4He7PEKfGN9r4Amyrmr8WbSLG3zmcJQiKeDVpUM+zWZrJ1Q==
+	 //https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxc1c62269461a335d&redirect_uri=http://gmri.mastergroup.com.cn/xnshop/page/userInsert.html?url=http://gmri.mastergroup.com.cn/xnshop/page/index.html?code=001B6ag105UlRD1dbSf10lh6g10B6ags&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1&uin=MTIyMjAxNDYxMw%3D%3D&key=65f928c75b96cd024462f4d9715c033905f7aab1b11ceed506594a64b304349cdacdd3817b9c2d5826d4521636730baf&pass_ticket=DJl4g8sobnzXNWgXX3pKBKKUmSvC9PIWiY7rdMq4He7PEKfGN9r4Amyrmr8WbSLG3zmcJQiKeDVpUM+zWZrJ1Q==
    @Autowired
    private UserService userService;
    private User user = new User();

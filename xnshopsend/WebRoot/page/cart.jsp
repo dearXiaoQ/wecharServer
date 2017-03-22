@@ -24,7 +24,7 @@
 
 	<div class="sjsc-title2">
 		<h3 class="sjsc-t2l">购物车</h3>
-		<a href="javascript:history.back();" class="sjsc-t2r"><img
+		<a href="index.html" class="sjsc-t2r"><img
 			src="images/back.png" alt=""
 			style="width:20px;height: 20px;padding-top: 
 11px;padding-left: 5px"></a>

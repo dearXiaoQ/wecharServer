@@ -1,17 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><%@ taglib
-	prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
-<html>
+<i><%@page language="java" contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8"%> <%@taglib
+		uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><%@taglib
+		prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+	<!DOCTYPE html>
+	<html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <title></title>
+
 <link rel="stylesheet" type="text/css" href="css/style.css">
 <link rel="stylesheet" type="text/css" href="css/shoujisc.css">
 <link rel="stylesheet" type="text/css" href="css/showTip.css">
+
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/woxiangyao.js"></script>
 <script type="text/javascript"
@@ -24,7 +26,7 @@
 		<h3 class="sjsc-t2l">确认付款</h3>
 		<a href="javascript:window.location.href='orderList.html'"
 			class="sjsc-t2r"><img src="images/back.png" alt=""
-			style="width:20px;height: 20px;padding-top: 11px;padding-left: 5px" /></a>
+			style="width:20px;height: 20px;padding-top: 11px;padding-left: 5px"></a>
 	</div>
 
 	<div class="my-dd">
@@ -121,16 +123,27 @@
     scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
     success: function (res) {
     var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
-    setTimeout (function () {
-		alert(result);
-		}, 100);
+   
    // alert(result);
-    if(result.indexOf("号桌") > 0) {
-		simulatePay();    		
-    }
+   if(result.indexOf("号桌") > 0) {
+   	
+		setTimeout('alertInfo()', 1000);
+    } else {
+    	setTimeout("alert('支付失败！')", 1000);
+	}
  
 }
 });}
+
+	
+	function alertInfo() {
+		var b = confirm('确定支付？');
+			if (b) {
+					simulatePay();    		
+				}
+		}
+		
+		
 	/** 微信支付 */
 	function pay(){
 			 WeixinJSBridge.invoke('getBrandWCPayRequest',{
@@ -151,51 +164,42 @@
 	/** 模拟微信支付 */
 	function simulatePay(){
 				 WeixinJSBridge.invoke('getBrandWCPayRequest',{
-			 "appId" : "<%=request.getAttribute("appId")%>","timeStamp" : "<%=request.getAttribute("timeStamp")%>", "nonceStr" : "<%=request.getAttribute("nonceStr")%>", "package" : "<%=request.getAttribute("package")%>","signType" : "MD5", "paySign" : "<%=request.getAttribute("paySign")%>" 
-   			},function(res){
-				WeixinJSBridge.log(res.err_msg);
-	        //    alert("微信支付成功！");
-	           setTimeout (function () {
-		alert("微信支付成功！");
-		}, 100);
-	            modifyOrderStatus();      		
-	  
+			 "appId" : "<%=request.getAttribute("appId")%>","timeStamp" : "<%=request.getAttribute("timeStamp")%>", "nonceStr" : "<%=request.getAttribute("nonceStr")%>", "package" : "<%=request.getAttribute("package")%>","signType" : "MD5", "paySign" : "<%=request.getAttribute("paySign")%>"
+			}, function(res) {
+				//WeixinJSBridge.log(res.err_msg);
+				//    alert("微信支付成功！");
+				modifyOrderStatus();
+
 			});
-		
-	}
-	
-	/** 通知服务器修改订单状态（仅限模拟微信支付阶段） */		
-	function modifyOrderStatus() {
-		var orderId = $('#orderId').val();
-		
-		$
-				.ajax({
-						url : 'modifyOrderStatus.html',
-						type : 'post',
-						data : 'order_id=' + orderId ,
-						success : function(rs) {
-							var data = eval('(' + rs + ')');
-							if (data.rs_code == 1) {	//修改订单状态
-								window.location.href='orderList.html';
-							} else if (data.rs_code == 0) {	//修改状态失败
-								alert("修改订单失败");
-							} 
-						}
-					})
-	}
-	
-  </script>
+
+		}
+
+		/** 通知服务器修改订单状态（仅限模拟微信支付阶段） */
+		function modifyOrderStatus() {
+			var orderId = $('#orderId').val();
+			$.ajax({
+				url : 'modifyOrderStatus.html',
+				type : 'post',
+				data : 'order_id=' + orderId,
+				success : function(rs) {
+					var data = eval('(' + rs + ')');
+					//console.log("modifyOrderStatus "  + data.rs_code + Date.parse(new Date()));
+					if (data.rs_code == 1) { //修改订单状态
+						setTimeout("alertFinaly()", 1000);
+						//window.location.href = 'orderList.html';
+
+					} else if (data.rs_code == 0) { //修改状态失败
+						showTip("支付失败！");
+					}
+				}
+			});
+		}
+
+		function alertFinaly() {
+			alert("微信支付成功！");
+			window.location.href = 'orderList.html';
+
+		}
+	</script>
 </body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
+	</html> </i>
